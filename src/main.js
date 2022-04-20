@@ -26,19 +26,19 @@ window.onload = async () => {
                 // If the same chain id is already registered, it will resolve and not require the user interactions.
                 await window.keplr.experimentalSuggestChain({
                     // Chain-id of the Osmosis chain.
-                    chainId: "osmosis-1",
+                    chainId: "uni-2",
                     // The name of the chain to be displayed to the user.
-                    chainName: "Osmosis mainnet",
+                    chainName: "Juno Testnet",
                     // RPC endpoint of the chain. In this case we are using blockapsis, as it's accepts connections from any host currently. No Cors limitations.
-                    rpc: "https://rpc-osmosis.blockapsis.com",
+                    rpc: "https://rpc.uni.juno.deuslabs.fi",
                     // REST endpoint of the chain.
-                    rest: "https://lcd-osmosis.blockapsis.com",
+                    rest: "https://lcd.uni.juno.deuslabs.fi",
                     // Staking coin information
                     stakeCurrency: {
                         // Coin denomination to be displayed to the user.
-                        coinDenom: "OSMO",
+                        coinDenom: "JUNOX",
                         // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                        coinMinimalDenom: "uosmo",
+                        coinMinimalDenom: "ujunox",
                         // # of decimal points to convert minimal denomination to user-facing denomination.
                         coinDecimals: 6,
                         // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -65,19 +65,19 @@ window.onload = async () => {
                     //   bech32PrefixConsPub: string;
                     // }
                     bech32Config: {
-                        bech32PrefixAccAddr: "osmo",
-                        bech32PrefixAccPub: "osmopub",
-                        bech32PrefixValAddr: "osmovaloper",
-                        bech32PrefixValPub: "osmovaloperpub",
-                        bech32PrefixConsAddr: "osmovalcons",
-                        bech32PrefixConsPub: "osmovalconspub"
+                        bech32PrefixAccAddr: "juno",
+                        bech32PrefixAccPub: "junopub",
+                        bech32PrefixValAddr: "junovaloper",
+                        bech32PrefixValPub: "junovaloperpub",
+                        bech32PrefixConsAddr: "junovalcons",
+                        bech32PrefixConsPub: "junovalconspub"
                     },
                     // List of all coin/tokens used in this chain.
                     currencies: [{
                         // Coin denomination to be displayed to the user.
-                        coinDenom: "OSMO",
+                        coinDenom: "JUNOX",
                         // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                        coinMinimalDenom: "uosmo",
+                        coinMinimalDenom: "ujunox",
                         // # of decimal points to convert minimal denomination to user-facing denomination.
                         coinDecimals: 6,
                         // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -87,9 +87,9 @@ window.onload = async () => {
                     // List of coin/tokens used as a fee token in this chain.
                     feeCurrencies: [{
                         // Coin denomination to be displayed to the user.
-                        coinDenom: "OSMO",
+                        coinDenom: "JUNOX",
                         // Actual denom (i.e. uosmo, uscrt) used by the blockchain.
-                        coinMinimalDenom: "uosmo",
+                        coinMinimalDenom: "ujunox",
                         // # of decimal points to convert minimal denomination to user-facing denomination.
                         coinDecimals: 6,
                         // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -120,7 +120,7 @@ window.onload = async () => {
         }
     }
 
-    const chainId = "osmosis-1";
+    const chainId = "uni-2";
 
     // You should request Keplr to enable the wallet.
     // This method will ask the user whether or not to allow access if they haven't visited this website.
@@ -138,7 +138,7 @@ window.onload = async () => {
 
     // Initialize the gaia api with the offline signer that is injected by Keplr extension.
     const cosmJS = new SigningCosmosClient(
-        "https://rpc-osmosis.blockapsis.com",
+        "https://rpc.uni.juno.deuslabs.fi",
         accounts[0].address,
         offlineSigner,
     );
@@ -162,23 +162,23 @@ document.sendForm.onsubmit = () => {
 
     (async () => {
         // See above.
-        const chainId = "osmosis-1";
+        const chainId = "uni-2";
         await window.keplr.enable(chainId);
         const offlineSigner = window.getOfflineSigner(chainId);
         const accounts = await offlineSigner.getAccounts();
 
         const client = await SigningStargateClient.connectWithSigner(
-            "https://rpc-osmosis.blockapsis.com",
+            "https://rpc.uni.juno.deuslabs.fi",
             offlineSigner
         )
 
         const amountFinal = {
-            denom: 'uosmo',
+            denom: 'ujunox',
             amount: amount.toString(),
         }
         const fee = {
             amount: [{
-                denom: 'uosmo',
+                denom: 'ujunox',
                 amount: '5000',
             }, ],
             gas: '200000',
